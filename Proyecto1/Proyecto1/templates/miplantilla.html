@@ -1,0 +1,22 @@
+<html>
+    <body>
+        {%include "superior/barra.html"%}
+        <h1 style="color: red;">Hola mundo como estamos todos</h1>
+        <p>Bienvenido {{nombre_persona}} {{apellido_persona}}</p>
+        <p>Estamos viendo el tema de las plantilla en la hora {{hora}}</p>
+        <p>
+            {%if cursos%}
+            <ul>
+                
+                    {% for curso in cursos %}
+                        <li>{{curso}}</li>
+                    {% endfor %}
+            </ul>
+            {%else%}
+            <p>No hay cursos disponibles</p>
+            {%endif%}
+        </p>
+
+
+    </body>
+</html>
