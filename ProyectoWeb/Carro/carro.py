@@ -1,11 +1,12 @@
 class Carro:
     def __init__(self, request):
-        # self.request = request
-        # self.session = request.session
-        # carro = self.session.get("carro")
+        self.request = request
+        self.session = request.session
+        carro = self.session.get("carro")
         
-        # if not carro:
-        #     carro = self.session["carro"] = {}
+        if not carro:
+            carro = self.session["carro"] = {}
+
         self.carro = carro
     
     
@@ -15,7 +16,7 @@ class Carro:
             self.carro[producto.id] = {
                 "producto_id": producto.id,
                 "nombre": producto.nombre,
-                "precio": producto.precio,
+                "precio": str(producto.precio),
                 "cantidad": 1,
                 "imagen": producto.imagen.url,
             }
@@ -24,6 +25,7 @@ class Carro:
             for key, value in self.carro.items():
                 if key==str(producto.id):
                     value["cantidad"] += 1
+                    value["precio"]=float(value["precio"])+producto.precio
                     break
         
         self.guardar_carro()
@@ -41,6 +43,7 @@ class Carro:
     def restar_producto(self, producto):
         for key, value in self.carro.items():
             if key==str(producto.id):
+                value["precio"]=float(value["precio"])-producto.precio
                 value["cantidad"] -= 1
                 if value["cantidad"] < 1:
                     self.eliminar(producto)
